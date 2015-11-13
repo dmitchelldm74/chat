@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+    {% for post in posts %}
+        <div id="d1">
+        <p>{{ post }}<p>
+        </div>
+    {% endfor %}
+    <h2>Send from Public, Name='Public' Password=' '.</h2>
+    <div id="tool">
+    <br>
+    <br>
+    <form action="/post" method="post">
+        <input placeholder="Name..." type="text" name="user"/><input placeholder="Password..." type="text" name="password"/><br/><br>
+        <textarea placeholder="Message..." cols="100" rows="4" name="msg"></textarea><br/><br>
+        <input type="submit" value="Post"><br/>
+    </form>
+    <br>
+    <br>
+    </div>
+<!--{{ post }}-->
+
+{% endblock %}
