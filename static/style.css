@@ -1,28 +1,28 @@
 body {
-    background-color: black;
-    color: limegreen;
+    background-color: #DCDCDC;
+    color: #1E90FF;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 20px;
 }
 a {
-    color: limegreen;
+    color: #1E90FF;
     font-size: 50px;
 }
 a:hover {
-    background-color: limegreen;
-    color: black;
+    background-color: #1E90FF;
+    color: yellow;
     font-size: 75px;
 }
 #d1 {
-    background-color: black;
+    background-color: transparent;
     margin: 20px;
     border-style: outset;
-    border-color: limegreen;
+    border-color: #FFFF00;
     font-size: 25px;
 }
 input[type=text] {
     padding:5px; 
-    border:2px solid limegreen; 
+    border:2px solid yellow; 
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
@@ -32,7 +32,7 @@ input[type=text]:focus {
 }
 input[type=password] {
     padding:5px; 
-    border:2px solid limegreen; 
+    border:2px solid yellow; 
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
@@ -42,11 +42,11 @@ input[type=password]:focus {
 }
 textarea {
     padding:5px 15px; 
-    background:black;
+    background:white;
     font-size: 50px;
     border:0 none;
     cursor:pointer;
-    color: limegreen;
+    color: #1E90FF;
     -webkit-border-radius: 5px;
     border-radius: 5px; 
 }
@@ -54,7 +54,8 @@ input[type=submit] {
     width: 200px;
     height: 100px;
     padding:5px 15px; 
-    background:limegreen;
+    background:#1E90FF;
+    color: #FFFF00;
     font-size: 50px;
     border:0 none;
     cursor:pointer;
@@ -65,8 +66,8 @@ input[type=submit]:hover {
     width: 200px;
     height: 100px;
     padding:5px 15px; 
-    background:black; 
-    color: limegreen;
+    background:#FFFF00; 
+    color: #1E90FF;
     border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
@@ -74,8 +75,8 @@ input[type=submit]:hover {
 }
 #tool {
     width: 850px;
-    border:4px outset limegreen;
-    background-color: limegreen;
+    border:4px outset #FFFF00;
+    background-color: #FFFF00;
     margin: 20px;
     
 }
