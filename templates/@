@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block body %}
     {% for long in lng %}
-        <div id="d1">
+        <div>
         <p>{{ long }}</p>
         </div>
     {% endfor %}

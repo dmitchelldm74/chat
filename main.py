@@ -27,6 +27,7 @@ def post():
         rider = air.read()
         pub = open('Public.txt', 'r+')
         lic = pub.read() 
+        result = '<div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div>' % (f3, wil, rider, lic)
         return render_template('form.html', posts=[f3, wil, rider, lic])
     elif request.method == 'POST':
         ps = request.form['password']
@@ -81,30 +82,46 @@ def ew():
     # long for the long message
     elong = open('ewilson.txt', 'r')
     willong = elong.read()
-    return render_template('@', lng=[willong, '<a href="/post">Home</a>'])
+    result = '''<div id="d1"><p>%s</p><br></div>''' % willong
+    return render_template('@', lng=[result, '<a href="/post">Home</a>'])
     
 @app.route('/@Daniel')
 def me():
     # long for the long message
     elong = open('Daniel.txt', 'r')
     willong = elong.read()
-    return render_template('@', lng=[willong, '<a href="/post">Home</a>'])
+    result = '''<div id="d1"><p>%s</p><br></div>''' % willong
+    return render_template('@', lng=[result, '<a href="/post">Home</a>'])
 @app.route('/@Airrider295')    
 def airride():
     # long for the long message
     elong = open('Airrider295.txt', 'r')
     willong = elong.read()
-    return render_template('@', lng=[willong, '<a href="/post">Home</a>'])    
+    result = '''<div id="d1"><p>%s</p><br></div>''' % willong
+    return render_template('@', lng=[result, '<a href="/post">Home</a>'])    
 @app.route('/@Public')    
 def public():
     # long for the long message
     f = open('Public.txt', 'r')
     f2 = f.read()
     f.close()
-    return render_template('@', lng=[f2, '<a href="/post">Home</a>']) 
-        
+    result = '''<div id="d1"><p>%s</p><br></div>''' % f2
+    return render_template('@', lng=[result, '<a href="/post">Home</a>']) 
+@app.route('/@All')    
+def al():
+    qw = open('Daniel.txt', 'r') 
+    f4 = qw.read()   
+    e2 = open('ewilson.txt', 'r+')
+    wil2 = e2.read()
+    ai = open('Airrider295.txt', 'r+')
+    ride = ai.read()
+    lic = open('Public.txt', 'r+')
+    pub = lic.read()    
+    result = '''<div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div>''' % (f4, wil2, ride, pub)
+    return render_template('@', lng=[result, '<a href="/post">Home</a>'])         
 @app.route('/@del')
 def truncate():
+    get_pass = 'admin.permission'
     #get_pass = raw_input('Enter "a" to Start>>> ')
     if get_pass == 'admin.permission':
         elong = open('ewilson.txt', 'w')
