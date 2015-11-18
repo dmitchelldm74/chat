@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 {% block body %}
+    {% autoescape false %}
     {% for post in posts %}
         <div id="d1">
         <p>{{ post }}</p>
         </div>
-    {% endfor %}
+    {% endfor %}    
+    {% endautoescape %}
+    
     <h2>Send from Public, Name='Public' Password=' '.</h2>
     <div id="tool">
     <br>
@@ -23,6 +26,6 @@
     <a href='/@ewilson'>@ewilson</a><br>
     <a href='/@Airrider295'>@Airrider295</a><br>
     <a href='/@Public'>@Public</a>
-<!--{{ post }}<input type="text" name="url"/>-->
+
 
 {% endblock %}
