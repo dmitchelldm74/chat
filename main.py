@@ -34,10 +34,12 @@ def post():
     if request.method == 'GET':
         pub = open('Public.txt', 'r+')
         lic = pub.read() 
-        result = '<div id="d1"><p>%s</p><br></div>' % (lic)
+        result = '%s' % (lic)
         return render_template('form.html', posts=[result])
     elif request.method == 'POST':
         global txt
+        import datetime
+        senttime = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
         ps = request.form['password']
         msg = request.form['msg']
         us1 = request.form['user']
@@ -49,24 +51,24 @@ def post():
             if to in txt:
                 f = open(fle2, 'a+')
                 user = "@%s:\n" % us1
-                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br>Sent at:&nbsp' + senttime + '<br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close() 
                 f = open(fle, 'a+')
                 user = "@%s:\n" % us1
-                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br>Sent at:&nbsp' + senttime + '<br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close()       
                 
             if to == '':
                 f = open('Public.txt', 'a+')
                 user = "@%s:\t" % us1
-                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br>Sent at:&nbsp' + senttime + '<br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close()
                 f = open(fle, 'a+')
                 user = "@%s:\n" % us1
-                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br>Sent at:&nbsp' + senttime + '<br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close()       
         if ps == 'del':
@@ -106,7 +108,7 @@ def ew():
                 f12 = open(se, 'r+')
                 rd = f12.read()
                 sent = '''<h1>Sent:</h1>%s''' % rd
-                return render_template('@', lng=[result, sent, '<a id="link" href="/post">Home</a>'])
+                return render_template('@', cr={'ps': ps, 'us': user}, lng=[result, sent, '<a id="link" href="/post">Home</a>'])
             else:
                 return 'Wrong Password...'
         
