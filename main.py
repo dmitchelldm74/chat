@@ -22,17 +22,10 @@ def goodbye(user):
 @app.route('/post', methods = ['GET', 'POST'])
 def post():
     if request.method == 'GET':
-        e = open('ewilson.txt', 'r+')
-        wil = e.read()
-        f = open('Daniel.txt', 'r+')
-        f3 = f.read()
-        #print f3
-        air = open('Airrider295.txt', 'r+')
-        rider = air.read()
         pub = open('Public.txt', 'r+')
         lic = pub.read() 
-        result = '<div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div><div id="d1"><p>%s</p><br></div>' % (f3, wil, rider, lic)
-        return render_template('form.html', posts=[f3, wil, rider, lic])
+        result = '<div id="d1"><p>%s</p><br></div>' % (lic)
+        return render_template('form.html', posts=[result])
     elif request.method == 'POST':
         ps = request.form['password']
         msg = request.form['msg']
@@ -47,12 +40,23 @@ def post():
                 msgcontent = user + msg
                 f.write(msgcontent)      
                 f.close() 
-            if to == '':
                 f = open(fle, 'a+')
+                user = "@%s:\n" % us1
+                msgcontent = user + msg
+                f.write(msgcontent)      
+                f.close()       
+                
+            if to == '':
+                f = open('Public.txt', 'a+')
                 user = "@%s:\t" % us1
                 msgcontent = user + msg
                 f.write(msgcontent)      
-                f.close()  
+                f.close()
+                f = open(fle, 'a+')
+                user = "@%s:\n" % us1
+                msgcontent = user + msg
+                f.write(msgcontent)      
+                f.close()       
         if ps == 'del':
             f = open(fle, 'w')
             f.truncate()
@@ -70,15 +74,10 @@ def post():
         if ps == '':
             send_to()
             
-        qw = open('Daniel.txt', 'r') 
-        f4 = qw.read()   
-        e2 = open('ewilson.txt', 'r+')
-        wil2 = e2.read()
-        ai = open('Airrider295.txt', 'r+')
-        ride = ai.read()
         lic = open('Public.txt', 'r+')
-        pub = lic.read()    
-        return render_template('form.html', posts=[f4, wil2, ride, pub])
+        pub = lic.read() 
+        result = '<div id="d1"><p>%s</p><br></div>' % (pub)   
+        return render_template('form.html', posts=[result])
         
 @app.route('/@ewilson:inbox', methods = ['GET', 'POST'])
 def ew():
@@ -90,8 +89,11 @@ def ew():
         if ps == pwd[0]:
             elong = open('ewilson:inbox', 'r+')
             willong = elong.read()
-            result = '''<div id="d1"><p>%s</p><br></div>''' % willong
-            return render_template('@', lng=[result, '<a href="/post">Home</a>'])
+            result = '''<h1>Inbox:</h1><div id="d1"><p>%s</p><br></div>''' % willong
+            f12 = open('ewilson.txt', 'r+')
+            rd = f12.read()
+            sent = '''<h1>Sent:</h1><div id="d1"><p>%s</p><br></div>''' % rd
+            return render_template('@', lng=[result, sent, '<a href="/post">Home</a>'])
         else:
             return 'Wrong Password...'
         
@@ -105,8 +107,11 @@ def me():
         if ps == pwd[1]:
             elong = open('Daniel:inbox', 'r+')
             willong = elong.read()
-            result = '''<div id="d1"><p>%s</p><br></div>''' % willong
-            return render_template('@', lng=[result, '<a href="/post">Home</a>'])
+            result = '''<h1>Inbox:</h1><div id="d1"><p>%s</p><br></div>''' % willong
+            f12 = open('Daniel.txt', 'r+')
+            rd = f12.read()
+            sent = '''<h1>Sent:</h1><div id="d1"><p>%s</p><br></div>''' % rd
+            return render_template('@', lng=[result, sent, '<a href="/post">Home</a>'])
         else:
             return 'Wrong Password...'
 @app.route('/@Airrider295:inbox', methods = ['GET', 'POST'])    
@@ -119,18 +124,24 @@ def airride():
         if ps == pwd[2]:
             elong = open('Airrider295:inbox', 'r+')
             willong = elong.read()
-            result = '''<div id="d1"><p>%s</p><br></div>''' % willong
-            return render_template('@', lng=[result, '<a href="/post">Home</a>'])
+            result = '''<h1>Inbox:</h1><div id="d1"><p>%s</p><br></div>''' % willong
+            f12 = open('Airrider295.txt', 'r+')
+            rd = f12.read()
+            sent = '''<h1>Sent:</h1><div id="d1"><p>%s</p><br></div>''' % rd
+            return render_template('@', lng=[result, sent, '<a href="/post">Home</a>'])
         else:
             return 'Wrong Password...'
        
-@app.route('/@Public')    
+@app.route('/@Public:inbox')    
 def public():
-    f = open('Public:inbox', 'r+')
+    f = open('Pubic:inbox', 'r+')
     f2 = f.read()
     f.close()
-    result = '''<div id="d1"><p>%s</p><br></div>''' % f2
-    return render_template('@', lng=[result, '<a href="/post">Home</a>']) 
+    result = '''<h1>Inbox:</h1><div id="d1"><p>%s</p><br></div>''' % f2
+    f12 = open('Public.txt', 'r+')
+    rd = f12.read()
+    sent = '''<h1>Sent:</h1><div id="d1"><p>%s</p><br></div>''' % rd
+    return render_template('@', lng=[result, sent, '<a href="/post">Home</a>']) 
     
 @app.route('/@All')    
 def al():
@@ -147,7 +158,6 @@ def al():
 @app.route('/@del')
 def truncate():
     get_pass = 'admin.permission'
-    #get_pass = raw_input('Enter "a" to Start>>> ')
     if get_pass == 'admin.permission':
         elong = open('ewilson.txt', 'w')
         elong.truncate()

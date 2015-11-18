@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block body %}
+    {% autoescape false %}
     {% for long in lng %}
         <div>
         <p>{{ long }}</p>
         </div>
-    {% endfor %}
+    {% endfor %}   
+    {% endautoescape %}
+    
+    
 {% endblock %}
