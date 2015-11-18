@@ -49,31 +49,31 @@ def post():
             if to in txt:
                 f = open(fle2, 'a+')
                 user = "@%s:\n" % us1
-                msgcontent = user + msg + '<br><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close() 
                 f = open(fle, 'a+')
                 user = "@%s:\n" % us1
-                msgcontent = user + msg + '<br><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close()       
                 
             if to == '':
                 f = open('Public.txt', 'a+')
                 user = "@%s:\t" % us1
-                msgcontent = user + msg + '<br><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close()
                 f = open(fle, 'a+')
                 user = "@%s:\n" % us1
-                msgcontent = user + msg + '<br><br>'
+                msgcontent = '<div id="d1"><br>' + user + msg + '<br><br>' + '</div><br>'
                 f.write(msgcontent)      
                 f.close()       
         if ps == 'del':
             f = open(fle, 'w')
             f.truncate()
             f.close() 
-        global pwd    
+           
         global password1  
         if us1 in txt and ps in password1:
             send_to()
@@ -83,7 +83,7 @@ def post():
             
         lic = open('Public.txt', 'r+')
         pub = lic.read() 
-        result = '<div id="d1"><p>%s</p><br></div>' % (pub)   
+        result = '%s' % (pub)   
         return render_template('form.html', posts=[result])
         
 @app.route('/@user:inbox', methods = ['GET', 'POST'])
@@ -93,7 +93,6 @@ def ew():
         return render_template('sign-in.html', pas=('/@user:inbox'))
     elif request.method == 'POST':
         global txt
-        global pwd
         global password1
         ps = request.form['pass']
         user = request.form['user']
@@ -102,12 +101,12 @@ def ew():
                 ope = user + ':inbox'
                 elong = open(ope, 'r+')
                 willong = elong.read()
-                result = '''<h1>Inbox:</h1><div id="d1"><p>%s</p><br></div>''' % willong
+                result = """<h1>Inbox:</h1>%s""" % willong
                 se = user + '.txt'
                 f12 = open(se, 'r+')
                 rd = f12.read()
-                sent = '''<h1>Sent:</h1><div id="d1"><p>%s</p><br></div>''' % rd
-                return render_template('@', lng=[result, sent, 'id="link"<a href="/post">Home</a>'])
+                sent = '''<h1>Sent:</h1>%s''' % rd
+                return render_template('@', lng=[result, sent, '<a id="link" href="/post">Home</a>'])
             else:
                 return 'Wrong Password...'
         
@@ -116,7 +115,7 @@ def me():
     if request.method == 'GET':
         return render_template('create.html')
     elif request.method == 'POST':
-        global pwd
+        
         ps = request.form['pass']
         user = request.form['user']
         
