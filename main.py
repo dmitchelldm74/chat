@@ -33,40 +33,38 @@ def post():
         ps = request.form['password']
         msg = request.form['msg']
         us1 = request.form['user']
+        to = request.form['to']
         fle = "%s.txt" % us1
+        fle2 = "%s:inbox" % to
+        def send_to():
+            if to == 'ewilson' or to == 'Daniel' or to == 'Airrider295' or to == 'Public':
+                f = open(fle2, 'a+')
+                user = "@%s:\n" % us1
+                msgcontent = user + msg
+                f.write(msgcontent)      
+                f.close() 
+            if to == '':
+                f = open(fle, 'a+')
+                user = "@%s:\t" % us1
+                msgcontent = user + msg
+                f.write(msgcontent)      
+                f.close()  
         if ps == 'del':
             f = open(fle, 'w')
             f.truncate()
             f.close() 
         if us1 == 'Daniel' and  ps == 'blog123':
-            f = open(fle, 'a+')
-            user = "@%s:\t" % us1
-            msgcontent = user + msg
-            #f.truncate()
-            f.write(msgcontent)      
-            f.close() 
+            send_to()
+            
         if us1 == 'Airrider295' and  ps == 'airrider':
-            f = open(fle, 'a+')
-            user = "@%s:\t" % us1
-            msgcontent = user + msg
-            #f.truncate()
-            f.write(msgcontent)
-            f.close() 
-                
+            send_to()
+            
         if us1 == 'ewilson' and  ps == 'ewilson':
-            f = open(fle, 'a+')
-            user = "@%s:\t%s\n" % (us1, msg)
-            msgcontent = user 
-            #f.truncate()
-            f.write(msgcontent)
-            f.close() 
-        if us1 == 'Public' and  ps == '':
-            f = open("Public.txt", 'a+')
-            user = "@Public:\t"
-            msgcontent = user + msg
-            #f.truncate()
-            f.write(msgcontent)
-            f.close()
+            send_to()
+            
+        if ps == '':
+            send_to()
+            
         qw = open('Daniel.txt', 'r') 
         f4 = qw.read()   
         e2 = open('ewilson.txt', 'r+')
@@ -79,30 +77,26 @@ def post():
         
 @app.route('/@ewilson')
 def ew():
-    # long for the long message
-    elong = open('ewilson.txt', 'r')
+    elong = open('ewilson:inbox', 'r+')
     willong = elong.read()
     result = '''<div id="d1"><p>%s</p><br></div>''' % willong
     return render_template('@', lng=[result, '<a href="/post">Home</a>'])
     
 @app.route('/@Daniel')
 def me():
-    # long for the long message
-    elong = open('Daniel.txt', 'r')
+    elong = open('Daniel:inbox', 'r+')
     willong = elong.read()
     result = '''<div id="d1"><p>%s</p><br></div>''' % willong
     return render_template('@', lng=[result, '<a href="/post">Home</a>'])
 @app.route('/@Airrider295')    
 def airride():
-    # long for the long message
-    elong = open('Airrider295.txt', 'r')
+    elong = open('Airrider295:inbox', 'r+')
     willong = elong.read()
     result = '''<div id="d1"><p>%s</p><br></div>''' % willong
     return render_template('@', lng=[result, '<a href="/post">Home</a>'])    
 @app.route('/@Public')    
 def public():
-    # long for the long message
-    f = open('Public.txt', 'r')
+    f = open('Public:inbox', 'r+')
     f2 = f.read()
     f.close()
     result = '''<div id="d1"><p>%s</p><br></div>''' % f2
