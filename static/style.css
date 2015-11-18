@@ -4,11 +4,11 @@ body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 20px;
 }
-a {
+#link {
     color: #1E90FF;
     font-size: 50px;
 }
-a:hover {
+#link:hover {
     background-color: #1E90FF;
     color: yellow;
     font-size: 75px;
@@ -43,7 +43,7 @@ input[type=password]:focus {
 textarea {
     padding:5px 15px; 
     background:white;
-    font-size: 50px;
+    font-size: 12px;
     border:0 none;
     cursor:pointer;
     color: #1E90FF;
