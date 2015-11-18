@@ -2,6 +2,10 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+password = open('passwords.txt', 'r+')
+password1 = password.read()
+pwd = password1.split('[*]') 
+password.close()
 
 @app.route('/')
 @app.route('/hello')
@@ -53,13 +57,14 @@ def post():
             f = open(fle, 'w')
             f.truncate()
             f.close() 
-        if us1 == 'Daniel' and  ps == 'blog123':
+        global pwd    
+        if us1 == 'Daniel' and  ps == pwd[1]:
             send_to()
             
-        if us1 == 'Airrider295' and  ps == 'airrider':
+        if us1 == 'Airrider295' and  ps == pwd[2]:
             send_to()
             
-        if us1 == 'ewilson' and  ps == 'ewilson':
+        if us1 == 'ewilson' and  ps == pwd[0]:
             send_to()
             
         if ps == '':
@@ -75,25 +80,50 @@ def post():
         pub = lic.read()    
         return render_template('form.html', posts=[f4, wil2, ride, pub])
         
-@app.route('/@ewilson')
+@app.route('/@ewilson:inbox', methods = ['GET', 'POST'])
 def ew():
-    elong = open('ewilson:inbox', 'r+')
-    willong = elong.read()
-    result = '''<div id="d1"><p>%s</p><br></div>''' % willong
-    return render_template('@', lng=[result, '<a href="/post">Home</a>'])
-    
-@app.route('/@Daniel')
+    if request.method == 'GET':
+        return render_template('sign-in.html', pas=('/@ewilson:inbox'))
+    elif request.method == 'POST':
+        global pwd
+        ps = request.form['pass']
+        if ps == pwd[0]:
+            elong = open('ewilson:inbox', 'r+')
+            willong = elong.read()
+            result = '''<div id="d1"><p>%s</p><br></div>''' % willong
+            return render_template('@', lng=[result, '<a href="/post">Home</a>'])
+        else:
+            return 'Wrong Password...'
+        
+@app.route('/@Daniel:inbox', methods = ['GET', 'POST'])
 def me():
-    elong = open('Daniel:inbox', 'r+')
-    willong = elong.read()
-    result = '''<div id="d1"><p>%s</p><br></div>''' % willong
-    return render_template('@', lng=[result, '<a href="/post">Home</a>'])
-@app.route('/@Airrider295')    
+    if request.method == 'GET':
+        return render_template('sign-in.html', pas=('/@Daniel:inbox'))
+    elif request.method == 'POST':
+        global pwd
+        ps = request.form['pass']
+        if ps == pwd[1]:
+            elong = open('Daniel:inbox', 'r+')
+            willong = elong.read()
+            result = '''<div id="d1"><p>%s</p><br></div>''' % willong
+            return render_template('@', lng=[result, '<a href="/post">Home</a>'])
+        else:
+            return 'Wrong Password...'
+@app.route('/@Airrider295:inbox', methods = ['GET', 'POST'])    
 def airride():
-    elong = open('Airrider295:inbox', 'r+')
-    willong = elong.read()
-    result = '''<div id="d1"><p>%s</p><br></div>''' % willong
-    return render_template('@', lng=[result, '<a href="/post">Home</a>'])    
+    if request.method == 'GET':
+        return render_template('sign-in.html', pas=('/@Airrider295:inbox'))
+    elif request.method == 'POST':
+        global pwd
+        ps = request.form['pass']
+        if ps == pwd[2]:
+            elong = open('Airrider295:inbox', 'r+')
+            willong = elong.read()
+            result = '''<div id="d1"><p>%s</p><br></div>''' % willong
+            return render_template('@', lng=[result, '<a href="/post">Home</a>'])
+        else:
+            return 'Wrong Password...'
+       
 @app.route('/@Public')    
 def public():
     f = open('Public:inbox', 'r+')
@@ -101,6 +131,7 @@ def public():
     f.close()
     result = '''<div id="d1"><p>%s</p><br></div>''' % f2
     return render_template('@', lng=[result, '<a href="/post">Home</a>']) 
+    
 @app.route('/@All')    
 def al():
     qw = open('Daniel.txt', 'r') 
