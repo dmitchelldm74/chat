@@ -16,7 +16,7 @@
     To:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input placeholder="Send To..." type="text" name="to"/><br><br>
      From:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input placeholder="Username..." type="text" name="user" value="{{ cr['us'] }}"/><br><br>Password:&nbsp<input placeholder="Password..." type="password" name="password" value="{{ cr['ps'] }}"/><br/><br>
         <textarea placeholder="Message..." style="margin: 0px; width: 773px; height: 471px;" cols="26" rows="4" name="msg"></textarea><br/><br>
-        <input type="submit" value="Post"><br/>
+        <input type="submit" value="Send"><br/>
     </form>
     </center>
     {% endif %}
