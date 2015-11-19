@@ -137,7 +137,7 @@ def me():
         f.write(msgcontent)      
         f.close()       
         msg = 'Successful!'
-        return render_template('create.html', lng=[msg, '<a id="link" href="/post">Home</a>'])
+        return render_template('base.html', lng=[msg, '<a id="link" href="/post">Home</a>'])
         
            
 
