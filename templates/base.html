@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="script.js"></script>
     <meta charset="UTF-8">
+    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
     <link rel="shortcut icon" href="http://4.bp.blogspot.com/-kVdMEhhIxc0/UxIRJfbKOnI/AAAAAAAABW0/R72g3aCSNQo/s1600/post-comment-1-512.png">
     <title>Messanger</title>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-    
+    <script type="text/javascript">
+    function insertText(elemID, text)
+      {
+        var elem = document.getElementById(elemID);
+        elem.innerHTML += text;
+      }
+   
+    </script>
 </head>
 <body>
     <center>
     {% block body %}{% endblock %}
-    <a href="/">Home</a>&nbsp&nbsp<a href="/create">Create Account</a>&nbsp&nbsp<a href="/@user:inbox">Inbox</a>&nbsp&nbsp<a href="/post">Post</a>&nbsp&nbsp
+    <br>
+    <br>
+    <a href="/">Home</a>&nbsp&nbsp<a href="/create">Create Account</a>&nbsp&nbsp<a href="/@user:inbox">Inbox</a>&nbsp&nbsp<a href="/post">Post</a>&nbsp&nbsp<a href="http://afeld.github.io/emoji-css/">More Emojis</a>
+    
     </center>
 </body>
 </html>

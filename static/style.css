@@ -80,3 +80,14 @@ input[type=submit]:hover {
     margin: 20px;
     
 }
+i.smile{
+    background-image:url(emojis/smile.png)
+    height:1.5em;
+    width:1.5em;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-size:contain;
+    display:inline-block;
+    vertical-align:middle;
+    
+    }
