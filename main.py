@@ -9,7 +9,6 @@ password.close()
 
 text = open('accounts.txt', 'r+')
 txt = text.read()
-# pwd = password1.split('[*]') 
 text.close()
      
 #if us1 in txt and  ps == pwd[2]:
@@ -37,7 +36,14 @@ def post():
         result = '%s' % (lic)
         return render_template('form.html', posts=[result])
     elif request.method == 'POST':
-        global txt
+        password = open('passwords.txt', 'r+')
+        password1 = password.read()
+        pwd = password1.split('[*]') 
+        password.close()
+
+        text = open('accounts.txt', 'r+')
+        txt = text.read() 
+        text.close()
         import datetime
         senttime = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
         ps = request.form['password']
@@ -47,7 +53,9 @@ def post():
         fle = "%s.txt" % us1
         fle2 = "%s:inbox" % to
         def send_to():
-            global txt
+            text = open('accounts.txt', 'r+')
+            txt = text.read() 
+            text.close()
             if to in txt:
                 f = open(fle2, 'a+')
                 user = "@%s:\n" % us1
@@ -76,7 +84,7 @@ def post():
             f.truncate()
             f.close() 
            
-        global password1  
+      
         if us1 in txt and ps in password1:
             send_to()
        
@@ -94,8 +102,14 @@ def ew():
     
         return render_template('sign-in.html', pas=('/@user:inbox'))
     elif request.method == 'POST':
-        global txt
-        global password1
+        password = open('passwords.txt', 'r+')
+        password1 = password.read()
+        pwd = password1.split('[*]') 
+        password.close()
+
+        text = open('accounts.txt', 'r+')
+        txt = text.read()
+        text.close()
         ps = request.form['pass']
         user = request.form['user']
         if user in txt:
@@ -137,7 +151,7 @@ def me():
         f.write(msgcontent)      
         f.close()       
         msg = 'Successful!'
-        return render_template('base.html', lng=[msg, '<a id="link" href="/post">Home</a>'])
+        return render_template('form.html', lng=[msg, '<a id="link" href="/post">Home</a>'])
         
            
 
