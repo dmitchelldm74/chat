@@ -1,11 +1,6 @@
 from flask import Flask, request, render_template
-
+from flask import Markup
 app = Flask(__name__)
-
-password = open('passwords.txt', 'r+')
-password1 = password.read()
-pwd = password1.split('[*]') 
-password.close()
 
 text = open('accounts.txt', 'r+')
 txt = text.read()
@@ -36,11 +31,6 @@ def post():
         result = '%s' % (lic)
         return render_template('form.html', posts=[result])
     elif request.method == 'POST':
-        password = open('passwords.txt', 'r+')
-        password1 = password.read()
-        pwd = password1.split('[*]') 
-        password.close()
-
         text = open('accounts.txt', 'r+')
         txt = text.read() 
         text.close()
@@ -50,6 +40,10 @@ def post():
         msg = request.form['msg']
         us1 = request.form['user']
         to = request.form['to']
+        password = open(us1 + '-password.txt', 'r+')
+        password1 = password.read()
+        pwd = password1.split('[*]') 
+        password.close()
         fle = "%s.txt" % us1
         fle2 = "%s:inbox" % to
         def send_to():
@@ -85,7 +79,7 @@ def post():
             f.close() 
            
       
-        if us1 in txt and ps in password1:
+        if us1 in txt and ps == password1:
             send_to()
        
         if ps == '':
@@ -102,7 +96,9 @@ def ew():
     
         return render_template('sign-in.html', pas=('/@user:inbox'))
     elif request.method == 'POST':
-        password = open('passwords.txt', 'r+')
+        ps = request.form['pass']
+        user = request.form['user']
+        password = open(user + '-password.txt', 'r+')
         password1 = password.read()
         pwd = password1.split('[*]') 
         password.close()
@@ -110,8 +106,7 @@ def ew():
         text = open('accounts.txt', 'r+')
         txt = text.read()
         text.close()
-        ps = request.form['pass']
-        user = request.form['user']
+        
         if user in txt:
             if ps in password1:
                 ope = user + ':inbox'
@@ -146,8 +141,8 @@ def me():
         msgcontent = user + '[*]'
         f.write(msgcontent)      
         f.close() 
-        f = open('passwords.txt', 'a+')
-        msgcontent = ps + '[*]'
+        f = open(user + '-password.txt', 'w')
+        msgcontent = ps
         f.write(msgcontent)      
         f.close()       
         msg = 'Successful!'
